@@ -1,0 +1,11 @@
+import type { RequestHandler } from './$types';
+import { get_route_details } from '$lib/server/wolt';
+ 
+export const POST: RequestHandler = async ({ url }) => {
+    let data = await get_route_details("Helsingin Yliopisto", "Aalto Dipoli");
+    if(data.error != null) {
+        console.log("route error");
+        throw new Error(data.error);
+    }
+    return new Response(JSON.stringify(data))
+}
